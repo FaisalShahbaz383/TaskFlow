@@ -7,7 +7,13 @@ const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://faisalshahbaz383_db_user:JygZQvTRsEXKJHQx@cluster0.9r9czme.mongodb.net/?appName=Cluster0';
+
+const MONGODB_URI = process.env.MONGODB_URI;
+
+// Throw an error early if MONGODB_URI is missing from environment
+if (!MONGODB_URI) {
+  console.error('❌ MONGODB_URI environment variable is missing!');
+}
 
 // Middleware
 app.use(
