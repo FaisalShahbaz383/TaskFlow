@@ -3,6 +3,9 @@ import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import './App.css';
 
+// Live Render backend API URL
+const BASE_URL = 'https://taskflow-qsad.onrender.com';
+
 function App() {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
@@ -24,7 +27,7 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/tasks');
+      const response = await fetch(`${BASE_URL}/api/tasks`);
       if (!response.ok) {
         throw new Error(`Failed to fetch tasks (HTTP ${response.status})`);
       }
@@ -37,7 +40,7 @@ function App() {
     } catch (err) {
       console.error('Fetch tasks error:', err);
       setError(
-        'Could not connect to the backend server. Make sure the Node/Express backend is running on port 5000 and MongoDB is active.'
+        'Could not connect to the backend server. Make sure the backend service is active and accessible.'
       );
     } finally {
       setIsLoading(false);
@@ -52,7 +55,7 @@ function App() {
   const handleCreateTask = async (taskData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch('/api/tasks', {
+      const response = await fetch(`${BASE_URL}/api/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +86,7 @@ function App() {
     if (!editingTask || !editingTask._id) return false;
     setIsSubmitting(true);
     try {
-      const response = await fetch(`/api/tasks/${editingTask._id}`, {
+      const response = await fetch(`${BASE_URL}/api/tasks/${editingTask._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -117,7 +120,7 @@ function App() {
   // Quick Status Change from card/table dropdown
   const handleQuickStatusChange = async (taskId, newStatus) => {
     try {
-      const response = await fetch(`/api/tasks/${taskId}`, {
+      const response = await fetch(`${BASE_URL}/api/tasks/${taskId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -150,7 +153,7 @@ function App() {
     }
 
     try {
-      const response = await fetch(`/api/tasks/${taskId}`, {
+      const response = await fetch(`${BASE_URL}/api/tasks/${taskId}`, {
         method: 'DELETE',
       });
 
