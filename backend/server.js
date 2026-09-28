@@ -7,7 +7,7 @@ const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/task_dashboard';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://faisalshahbaz383_db_user:<db_password>@cluster0.9r9czme.mongodb.net/?appName=Cluster0';
 
 // Middleware
 app.use(
